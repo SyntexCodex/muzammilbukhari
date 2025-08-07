@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base colors */
+  --background: #01080e;
+  --foreground: #ffffff;
+
+  /* Theme colors */
+  --primary: #43d9ad;
+  --secondary: #4d5bce;
+  --accent: #e99287;
+
+  /* UI colors */
+  --border-color: #1e2d3d;
+  --card-bg: #011627;
+  --menu-bg: #011221;
+  --button-primary: #fea55f;
+  --button-primary-hover: #ffac6b;
+  --button-secondary: #1c2b3a;
+  --button-secondary-hover: #263b50;
+
+  /* Text colors */
+  --text-primary: #e5e9f0;
+  --text-secondary: #607b96;
+  --text-accent: #fea55f;
+  --text-code: #43d9ad;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-fira-code: "Fira Code", var(--font-fira-code), monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-fira-code: var(--font-fira-code);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* No need for dark mode toggle as the design is dark by default */
+
+body {
+  background: #011627;
+  color: #ffffff;
+  font-family: var(--font-fira-code);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--button-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--button-secondary-hover);
+}
+
+/* Snake game specific styles */
+.snake-game {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.snake-game-canvas {
+  display: block;
+  background: var(--card-bg);
+}
+
+/* Button styles */
+.btn {
+  font-family: var(--font-fira-code);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--button-primary);
+  color: var(--background);
+}
+
+.btn-primary:hover {
+  background: var(--button-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--button-secondary);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--button-secondary-hover);
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 12px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (max-width: 480px) {
+  .container {
+    padding: 0 8px;
+  }
 }

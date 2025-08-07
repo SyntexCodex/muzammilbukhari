@@ -1,0 +1,8 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" fill="#2A2A2A"/>
+  <rect x="200" y="100" width="400" height="200" rx="8" fill="#3A3A3A"/>
+  <path d="M400 150L450 230H350L400 150Z" fill="#6366F1"/>
+  <circle cx="350" cy="180" r="20" fill="#6366F1"/>
+  <path d="M450 180C450 180 480 210 480 230C480 250 450 250 450 230C450 210 450 180 450 180Z" fill="#6366F1"/>
+  <text x="400" y="270" font-family="Arial" font-size="24" fill="white" text-anchor="middle">Project Image</text>
+</svg>
