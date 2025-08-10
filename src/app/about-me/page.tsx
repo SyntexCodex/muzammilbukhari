@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
-import Image from 'next/image';
 
 interface Education {
   name: string;
@@ -197,7 +196,7 @@ export default function AboutPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-sm text-[#607B96]">// Select an education item</div>
+                    <div className="text-sm text-[#607B96]">{/* Select an education item */}</div>
                   )}
                 </div>
               )}
@@ -220,7 +219,7 @@ export default function AboutPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-sm text-[#607B96]">// Select an experience item</div>
+                    <div className="text-sm text-[#607B96]">{/* Select an experience item */}</div>
                   )}
                 </div>
               )}
@@ -228,7 +227,7 @@ export default function AboutPage() {
               <div className="w-[400px] flex flex-col">
                   <div className="border-b border-[#1E2D3D] py-2.5 px-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm">// Code snippet showcase:</span>
+                      <span className="text-sm">{/* Code snippet showcase: */}</span>
                     </div>
                   </div>
                   <div className="flex-1 p-6 space-y-6">

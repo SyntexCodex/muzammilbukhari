@@ -171,7 +171,8 @@ export default function ProjectDetailPage() {
               Project Not Found
             </h1>
             <p className="text-text-secondary mb-8">
-              The project you're looking for doesn't exist or has been removed.
+              The project you&rsquo;re looking for doesn&rsquo;t exist or has
+              been removed.
             </p>
             <Link
               href="/projects"

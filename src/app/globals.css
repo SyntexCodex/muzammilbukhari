@@ -90,6 +90,37 @@ a {
   background: var(--card-bg);
 }
 
+/* Animation for WhatsApp chat welcome message */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Animation for floating language icons */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0% { filter: drop-shadow(0 0 2px rgba(67, 217, 173, 0.2)); }
+  50% { filter: drop-shadow(0 0 8px rgba(67, 217, 173, 0.4)); }
+  100% { filter: drop-shadow(0 0 2px rgba(67, 217, 173, 0.2)); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
 /* Button styles */
 .btn {
   font-family: var(--font-fira-code);

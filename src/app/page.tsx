@@ -3,10 +3,12 @@ import MainLayout from "@/components/layout/MainLayout";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import LanguageIcons from "@/components/home/LanguageIcons";
 
 export default function Home() {
   return (
     <MainLayout>
+      <LanguageIcons />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -51,7 +53,7 @@ export default function Home() {
 
           <div className="text-left mb-8">
             <p className="text-[#607B96] mb-2">
-              // Turn Your Dream Project Into Real Time Application
+              {/* Turn Your Dream Project Into Real Time Application */}
             </p>
             <TypeAnimation
               sequence={[
@@ -67,7 +69,7 @@ export default function Home() {
               repeat={Infinity}
               className="text-md md:text-md text-[#ffffff] mb-4 mt-4"
             />
-            <p className="text-[#607B96] mb-4">// Find My Profile On Github:</p>
+            <p className="text-[#607B96] mb-4">{/* Find My Profile On Github: */}</p>
             <div className="text-[#E5E9F0]">
               <span className="text-[#4D5BCE]">const</span>{" "}
               <span className="text-[#43D9AD]">githubLink</span> ={" "}
