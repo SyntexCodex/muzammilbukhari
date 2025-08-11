@@ -88,14 +88,15 @@ export default function Home() {
           className="w-full md:w-1/2 flex flex-col justify-center items-center relative"
         >
           {/* Image code block */}
-          <div className="relative mt-10 mb-8 max-w-md w-full ">
+          <div className="relative mt-6 md:mt-6 mb-6 md:mb-8 max-w-xs md:max-w-md w-full px-4 md:px-0">
             <div className="absolute inset-0 bg-[#615FFF] opacity-50 blur-xl rounded-lg"></div>
-            <div className="relative bg-[#011627] border border-[#43D9AD] rounded-lg p-4 font-mono text-sm">
+            <div className="relative bg-[#011627] border border-[#43D9AD] rounded-lg p-2 md:p-4 font-mono text-sm">
               <Image
                 src="/icons/profile.png"
                 alt="Code block"
                 width={600}
                 height={400}
+                className="w-full h-auto"
               />
             </div>
           </div>

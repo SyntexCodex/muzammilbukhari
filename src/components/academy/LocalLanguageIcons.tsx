@@ -15,9 +15,9 @@ const LanguageIcon: React.FC<LanguageIconProps> = ({
   className = "",
 }) => {
   const sizeClasses = {
-    sm: "w-6 h-6",
-    md: "w-8 h-8",
-    lg: "w-10 h-10",
+    sm: "w-5 h-5 md:w-6 md:h-6",
+    md: "w-6 h-6 md:w-8 md:h-8",
+    lg: "w-8 h-8 md:w-10 md:h-10",
   };
 
   return (
@@ -26,7 +26,7 @@ const LanguageIcon: React.FC<LanguageIconProps> = ({
       title={name}
     >
       <div
-        className={`language-icon rounded-full p-1.5 ${sizeClasses[size]} flex items-center justify-center transition-all duration-300 hover:scale-110`}
+        className={`language-icon rounded-full p-1 md:p-1.5 ${sizeClasses[size]} flex items-center justify-center transition-all duration-300 hover:scale-110`}
         style={{ backgroundColor: `${color}20` }} // 20 is hex for 12% opacity
       >
         <div
@@ -47,7 +47,7 @@ const LanguageIcon: React.FC<LanguageIconProps> = ({
           backgroundColor: `${color}10`, // 10 is hex for 6% opacity
         }}
       ></span>
-      <span className="language-icon-tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-[#1E2D3D] text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+      <span className="language-icon-tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-[#1E2D3D] text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap hidden md:block">
         {name}
       </span>
     </div>

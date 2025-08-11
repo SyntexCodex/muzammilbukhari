@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface Category {
@@ -23,6 +23,33 @@ const ProjectsFilter: React.FC<ProjectsFilterProps> = ({
   searchQuery,
 }) => {
   const [localCategories, setLocalCategories] = useState<Category[]>(categories);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if the screen is mobile size
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+  
+  // Set categories closed by default on mobile
+  useEffect(() => {
+    if (isMobile) {
+      setIsCategoriesOpen(false);
+    } else {
+      setIsCategoriesOpen(true);
+    }
+  }, [isMobile]);
 
   const handleCheckboxChange = (categoryId: string) => {
     const updatedCategories = localCategories.map((category) => {
@@ -42,7 +69,7 @@ const ProjectsFilter: React.FC<ProjectsFilterProps> = ({
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="w-full md:w-[240px] border-r border-[#1E2D3D] bg-[#011627] overflow-y-auto"
+      className="w-full md:w-[240px] border-r border-[#1E2D3D] bg-[#011627]"
     >
       <div className="p-4 border-b border-[#1E2D3D]">
         <div className="flex items-center">
@@ -79,21 +106,33 @@ const ProjectsFilter: React.FC<ProjectsFilterProps> = ({
 
       <div className="p-4">
         <div className="mb-4">
-          <div className="flex items-center mb-2">
+          <div 
+            className="flex items-center mb-2 cursor-pointer" 
+            onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+          >
             <svg
               width="10"
               height="6"
               viewBox="0 0 10 6"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="mr-2"
+              className={`mr-2 transition-transform duration-300 ${isCategoriesOpen ? '' : 'transform rotate-180'}`}
             >
               <path d="M1 1L5 5L9 1" stroke="#607B96" strokeWidth="1.5" />
             </svg>
             <span className="text-[#607B96]">categories</span>
           </div>
 
-          <div className="ml-4">
+          <motion.div 
+            className="ml-4"
+            initial={{ height: 'auto' }}
+            animate={{ 
+              height: isCategoriesOpen ? 'auto' : 0,
+              opacity: isCategoriesOpen ? 1 : 0
+            }}
+            transition={{ duration: 0.3 }}
+            style={{ overflow: 'hidden' }}
+          >
             {localCategories.map((category) => (
               <div key={category.id} className="flex items-center mb-2">
                 <label className="flex items-center cursor-pointer">
@@ -128,9 +167,10 @@ const ProjectsFilter: React.FC<ProjectsFilterProps> = ({
                 </label>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
+
     </motion.div>
   );
 };

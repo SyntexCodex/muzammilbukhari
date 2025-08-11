@@ -20,18 +20,17 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-[#1E2D3D] bg-[#011627]">
-      {/* Desktop Footer */}
-      <div className="flex justify-between items-center p-4 border-t border-[#1E2D3D] bg-[#011627]">
-        <div className="flex items-center">
-          <span className="text-[#607B96] text-sm mr-4">find me in:</span>
+      <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-4 border-t border-[#1E2D3D] bg-[#011627]">
+        <div className="flex items-center mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
+          <span className="text-[#607B96] text-xs sm:text-sm mr-2 sm:mr-4">find me in:</span>
           <div className="flex">
             <Link
               href="#"
               aria-label="Twitter"
-              className="flex items-center justify-center w-10 h-10 border-l border-[#1E2D3D] hover:bg-[#1C2B3A] transition-colors"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 border-l border-[#1E2D3D] hover:bg-[#1C2B3A] transition-colors"
             >
               <svg
-                className="w-5 h-5 text-[#607B96]"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-[#607B96]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -42,10 +41,10 @@ const Footer = () => {
             <Link
               href="#"
               aria-label="LinkedIn"
-              className="flex items-center justify-center w-10 h-10 border-l border-[#1E2D3D] hover:bg-[#1C2B3A] transition-colors"
+              className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 border-l border-[#1E2D3D] hover:bg-[#1C2B3A] transition-colors"
             >
               <svg
-                className="w-5 h-5 text-[#607B96]"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-[#607B96]"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -53,16 +52,15 @@ const Footer = () => {
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
               </svg>
             </Link>
-            
           </div>
         </div>
         <Link
           href="https://github.com/example/url"
-          className="flex items-center justify-center border-l border-[#1E2D3D] px-4 h-10 hover:bg-[#1C2B3A] transition-colors"
+          className="flex items-center justify-center border-t sm:border-t-0 sm:border-l border-[#1E2D3D] px-3 sm:px-4 py-2 sm:py-0 h-8 sm:h-10 w-full sm:w-auto hover:bg-[#1C2B3A] transition-colors"
         >
-          <span className="text-[#607B96]">@username</span>
+          <span className="text-[#607B96] text-xs sm:text-sm">@username</span>
           <svg
-            className="w-5 h-5 text-[#607B96] ml-2"
+            className="w-4 h-4 sm:w-5 sm:h-5 text-[#607B96] ml-2"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"

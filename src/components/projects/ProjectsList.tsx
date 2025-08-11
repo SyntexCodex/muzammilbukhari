@@ -16,9 +16,9 @@ const ProjectsList: React.FC<ProjectsListProps> = ({ projects }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="flex-1 overflow-y-auto p-6 bg-[#011627]"
+      className="flex-1 p-4 md:p-6 bg-[#011627]"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {projects.length > 0 ? (
           projects.map((project, index) => (
             <motion.div

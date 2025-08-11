@@ -84,25 +84,34 @@ const LanguageIcons = () => {
     // Animation frame for zero gravity movement
     let animationFrameId: number;
     const containerWidth = typeof window !== 'undefined' ? window.innerWidth : 500;
-    const containerHeight = typeof window !== 'undefined' ? window.innerHeight : 500;
+    const containerHeight = typeof window !== 'undefined' ? window.innerHeight * (window.innerWidth < 768 ? 0.6 : 0.8) : 400;
 
     // Initialize icons with random positions across the screen
     setIcons(prevIcons => 
-      prevIcons.map(icon => ({
-        ...icon,
-        position: {
-          x: Math.random() * (containerWidth - icon.size),
-          y: Math.random() * (containerHeight - icon.size),
-        },
-        // Add some randomness to velocities
-        velocity: {
-          x: icon.velocity.x * (0.8 + Math.random() * 0.4),
-          y: icon.velocity.y * (0.8 + Math.random() * 0.4),
-        },
-      }))
+      prevIcons.map(icon => {
+        // Adjust icon size based on screen width
+        const adjustedSize = typeof window !== 'undefined' && window.innerWidth < 768 ? icon.size * 0.7 : icon.size;
+        
+        return {
+          ...icon,
+          size: adjustedSize,
+          position: {
+            x: Math.random() * (containerWidth - adjustedSize),
+            y: Math.random() * (containerHeight - adjustedSize),
+          },
+          // Add some randomness to velocities and slow down on mobile
+          velocity: {
+            x: icon.velocity.x * (0.8 + Math.random() * 0.4) * (typeof window !== 'undefined' && window.innerWidth < 768 ? 0.7 : 1),
+            y: icon.velocity.y * (0.8 + Math.random() * 0.4) * (typeof window !== 'undefined' && window.innerWidth < 768 ? 0.7 : 1),
+          },
+        };
+      })
     );
 
     const animate = () => {
+      const currentContainerWidth = typeof window !== 'undefined' ? window.innerWidth : 500;
+      const currentContainerHeight = typeof window !== 'undefined' ? window.innerHeight * (window.innerWidth < 768 ? 0.6 : 0.8) : 400;
+      
       setIcons((prevIcons) =>
         prevIcons.map((icon) => {
           // Update position based on velocity
@@ -110,16 +119,16 @@ const LanguageIcons = () => {
           let newY = icon.position.y + icon.velocity.y;
 
           // Bounce off the edges with a small random change in velocity
-          if (newX <= 0 || newX >= containerWidth - icon.size) {
+          if (newX <= 0 || newX >= currentContainerWidth - icon.size) {
             const randomFactor = 0.05 * (Math.random() - 0.5);
             icon.velocity.x = -icon.velocity.x + randomFactor;
-            newX = newX <= 0 ? 0 : containerWidth - icon.size;
+            newX = newX <= 0 ? 0 : currentContainerWidth - icon.size;
           }
 
-          if (newY <= 0 || newY >= containerHeight - icon.size) {
+          if (newY <= 0 || newY >= currentContainerHeight - icon.size) {
             const randomFactor = 0.05 * (Math.random() - 0.5);
             icon.velocity.y = -icon.velocity.y + randomFactor;
-            newY = newY <= 0 ? 0 : containerHeight - icon.size;
+            newY = newY <= 0 ? 0 : currentContainerHeight - icon.size;
           }
 
           return {
@@ -159,7 +168,7 @@ const LanguageIcons = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden h-[60vh] md:h-[80vh]">
       {icons.map((icon) => (
         <motion.div
           key={icon.id}

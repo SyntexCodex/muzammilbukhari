@@ -1,0 +1,17 @@
+/* Custom scrollbar styling */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Additional mobile styles */
+@media (max-width: 768px) {
+  .mobile-tab-active {
+    background-color: #1E2D3D;
+    color: white;
+  }
+}

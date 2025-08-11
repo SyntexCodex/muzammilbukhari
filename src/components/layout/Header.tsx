@@ -68,9 +68,16 @@ const Header = () => {
       </div>
 
       {/* Mobile Header */}
-      <div className="container mx-auto flex md:hidden justify-between items-center h-[60px] px-4">
-        <Link href="/" className="text-[#ffffff] text-sm">
-          muzammil-bukhari
+      <div className="container mx-auto flex md:hidden justify-between items-center h-[60px] px-4 sticky top-0 z-40 bg-[#011627]">
+        <Link href="/" className="text-[#ffffff] text-sm flex items-center">
+          <Image
+            src="/icons/profile.png"
+            alt="profile"
+            width={30}
+            height={30}
+            className="rounded-full mr-2"
+          />
+          <span>muzammil-bukhari</span>
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -89,41 +96,51 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-[#011627] z-50 md:hidden">
+        <div className="fixed inset-0 bg-[#011627] z-50 md:hidden flex flex-col">
           <div className="flex justify-between items-center h-[60px] px-4 border-b border-[#1E2D3D]">
-            <Link href="/" className="text-white text-sm">
-              muzammil-bukhari
+            <Link href="/" className="text-white text-sm flex items-center">
+              <Image
+                src="/icons/profile.png"
+                alt="profile"
+                width={30}
+                height={30}
+                className="rounded-full mr-2"
+              />
+              <span>muzammil-bukhari</span>
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2"
+              className="p-2 rounded-full bg-[#1E2D3D] hover:bg-[#2b3f56] transition-colors"
               aria-label="Close menu"
             >
-              <Image
-                src="/icons/profile.png"
-                alt="Close"
-                width={24}
-                height={24}
-                className="text-[#607B96]"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
             </button>
           </div>
-          <nav className="flex flex-col p-4">
+          <nav className="flex flex-col p-4 overflow-y-auto">
             {[...menuItems, { name: "_contact-me", path: "/contact" }].map(
               (item) => (
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`py-4 border-b border-[#1E2D3D] ${
-                    isActive(item.path) ? "text-[#FEA55F]" : "text-[#607B96]"
+                  className={`py-4 px-2 my-1 border-b border-[#1E2D3D] flex items-center ${
+                    isActive(item.path) 
+                      ? "text-[#FEA55F] bg-[#1E2D3D] rounded-md" 
+                      : "text-[#607B96] hover:bg-[#1E2D3D] hover:text-white rounded-md transition-colors"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
+                  <span className="text-[#FEA55F] mr-2">{'>'}</span>
                   {item.name}
                 </Link>
               )
             )}
           </nav>
+          <div className="mt-auto p-4 border-t border-[#1E2D3D] text-center text-[#607B96] text-sm">
+            © 2023 Muzammil Bukhari
+          </div>
         </div>
       )}
     </header>

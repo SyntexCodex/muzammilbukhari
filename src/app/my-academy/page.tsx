@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import MainLayout from "@/components/layout/MainLayout";
-import LanguageIconGroup from "@/components/academy/LanguageIconGroup";
+import ResponsiveLanguageIconGroup from "@/components/academy/ResponsiveLanguageIconGroup";
 import {
   weekIconsMapping,
   moduleIconsMapping,
 } from "@/components/academy/weekIconsMapping";
+import AcademyClientWrapper from "./AcademyClientWrapper";
 import "./academy.css";
 
 interface Module {
@@ -408,376 +409,401 @@ export default function AcademyPage() {
 
   return (
     <MainLayout>
-      <div
-        className={`min-h-screen bg-[#011627] text-[#607B96] flex flex-col module-${activeModule}`}
-      >
-        <div className="flex-1 flex">
-          {/* Left Sidebar */}
-          <div className="w-64 border-r border-[#1E2D3D] flex flex-col">
-            <div className="border-b border-[#1E2D3D] py-2.5 px-4">
-              <div className="flex items-center gap-2">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-                <span className="text-sm">academy-modules</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col py-4">
-              {modules.map((module) => (
-                <div key={module.id}>
-                  <button
-                    onClick={() => {
-                      setActiveModule(module.id);
-                      setActiveWeek("");
-                    }}
-                    className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors academy-module-button"
-                    style={{
-                      borderLeft:
-                        module.id === activeModule
-                          ? `3px solid ${
-                              {
-                                frontend: "#61DAFB",
-                                backend: "#339933",
-                                advanced: "#764ABC",
-                                microservices: "#2496ED",
-                              }[module.id] || "#E99287"
-                            }`
-                          : "none",
-                    }}
-                  >
+      <AcademyClientWrapper>
+        <div
+          className={`min-h-screen bg-[#011627] text-[#607B96] flex flex-col module-${activeModule}`}
+        >
+          <div className="flex-1 flex flex-col md:flex-row">
+            {/* Left Sidebar - Hidden on mobile by default */}
+            <div className="md:w-64 border-r border-[#1E2D3D] flex flex-col">
+              <div className="border-b border-[#1E2D3D] py-2.5 px-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
                     <svg
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="text-[#E99287]"
                     >
-                      <path
-                        d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
                         stroke="currentColor"
                         strokeWidth="2"
-                        strokeLinecap="round"
                       />
                     </svg>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-center">
-                        <span>{module.id}</span>
-                        <div className="flex items-center">
-                          <LanguageIconGroup
-                            icons={moduleIconsMapping[module.id] || []}
-                            size="sm"
-                            className="mr-2"
-                          />
-                          <span className="text-xs text-[#43D9AD]">
-                            {progress[module.id] || 0}%
-                          </span>
+                    <span className="text-sm">academy-modules</span>
+                  </div>
+                  <button
+                    className="md:hidden text-[#607B96]"
+                    onClick={() => setActiveWeek("")}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col py-4">
+                {modules.map((module) => (
+                  <div key={module.id}>
+                    <button
+                      onClick={() => {
+                        setActiveModule(module.id);
+                        setActiveWeek("");
+                      }}
+                      className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors academy-module-button"
+                      style={{
+                        borderLeft:
+                          module.id === activeModule
+                            ? `3px solid ${
+                                {
+                                  frontend: "#61DAFB",
+                                  backend: "#339933",
+                                  advanced: "#764ABC",
+                                  microservices: "#2496ED",
+                                }[module.id] || "#E99287"
+                              }`
+                            : "none",
+                      }}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="text-[#E99287]"
+                      >
+                        <path
+                          d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center">
+                          <span>{module.id}</span>
+                          <div className="flex items-center">
+                            <ResponsiveLanguageIconGroup
+                              icons={moduleIconsMapping[module.id] || []}
+                              size="sm"
+                              className="mr-1 sm:mr-2"
+                            />
+                            <span className="text-xs text-[#43D9AD]">
+                              {progress[module.id] || 0}%
+                            </span>
+                          </div>
+                        </div>
+                        <div className="progress-bar w-full max-w-[100px] sm:max-w-full">
+                          <div
+                            className="progress-fill"
+                            style={{
+                              width: `${progress[module.id] || 0}%`,
+                              backgroundColor:
+                                {
+                                  frontend: "#61DAFB",
+                                  backend: "#339933",
+                                  advanced: "#764ABC",
+                                  microservices: "#2496ED",
+                                }[module.id] || "#43D9AD",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className="progress-bar">
-                        <div
-                          className="progress-fill"
-                          style={{
-                            width: `${progress[module.id] || 0}%`,
-                            backgroundColor:
-                              {
-                                frontend: "#61DAFB",
-                                backend: "#339933",
-                                advanced: "#764ABC",
-                                microservices: "#2496ED",
-                              }[module.id] || "#43D9AD",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </button>
+                    </button>
 
-                  {activeModule === module.id && (
-                    <div className="pl-8 space-y-2">
-                      {module.weeks.map((week) => {
-                        const weekIcons = weekIconsMapping[week.id] || [];
-                        const moduleColor =
-                          {
-                            frontend: "#61DAFB", /* React blue */
-                            backend: "#339933", /* Node.js green */
-                            advanced: "#764ABC", /* Redux purple */
-                            microservices: "#2496ED", /* Docker blue */
-                          }[module.id] || "#607B96";
+                    {activeModule === module.id && (
+                      <div className="pl-4 md:pl-8 space-y-1 md:space-y-2">
+                        {module.weeks.map((week) => {
+                          const weekIcons = weekIconsMapping[week.id] || [];
+                          const moduleColor =
+                            {
+                              frontend: "#61DAFB" /* React blue */,
+                              backend: "#339933" /* Node.js green */,
+                              advanced: "#764ABC" /* Redux purple */,
+                              microservices: "#2496ED" /* Docker blue */,
+                            }[module.id] || "#607B96";
 
-                        return (
-                          <button
-                            key={week.id}
-                            onClick={() => setActiveWeek(week.id)}
-                            className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors"
-                            data-tooltip={week.title}
-                            style={{
-                              borderLeft:
-                                activeWeek === week.id
-                                  ? `2px solid ${moduleColor}`
-                                  : "none",
-                              backgroundColor:
-                                activeWeek === week.id
-                                  ? "#1E2D3D"
-                                  : "transparent",
-                            }}
-                          >
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#607B96]"
+                          return (
+                            <button
+                              key={week.id}
+                              onClick={() => setActiveWeek(week.id)}
+                              className="flex items-center gap-1 sm:gap-2 py-1 sm:py-1.5 md:py-2 px-1 sm:px-2 md:px-4 text-xs md:text-sm hover:bg-[#1E2D3D] transition-colors w-full"
+                              data-tooltip={week.title}
+                              style={{
+                                borderLeft:
+                                  activeWeek === week.id
+                                    ? `2px solid ${moduleColor}`
+                                    : "none",
+                                backgroundColor:
+                                  activeWeek === week.id
+                                    ? "#1E2D3D"
+                                    : "transparent",
+                              }}
                             >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="tooltip">{week.id}</span>
-                            {weekIcons.length > 0 && (
-                              <div className="flex ml-auto gap-1">
-                                <LanguageIconGroup
-                                  icons={weekIcons}
-                                  size="sm"
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#607B96] flex-shrink-0"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
                                 />
-                              </div>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col border-x border-[#1E2D3D]">
-            <div className="border-b border-[#1E2D3D] py-2.5 px-4">
-              <div className="flex items-center gap-2">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span className="text-sm">
-                  {activeWeek
-                    ? modules
-                        .find((m) => m.id === activeModule)
-                        ?.weeks.find((w) => w.id === activeWeek)?.title
-                    : modules.find((m) => m.id === activeModule)?.title}
-                </span>
-                <button className="ml-auto text-sm">✕</button>
+                              </svg>
+                              <span className="tooltip truncate">
+                                {week.id}
+                              </span>
+                              {weekIcons.length > 0 && (
+                                <div className="flex ml-auto gap-1 flex-shrink-0">
+                                  <ResponsiveLanguageIconGroup
+                                    icons={weekIcons}
+                                    size="sm"
+                                  />
+                                </div>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="flex-1 flex">
-              <div className="flex-1 p-6 font-mono border-r border-[#1E2D3D] overflow-y-auto">
-                {activeWeek ? (
-                  <div className="space-y-4">
-                    <div className="text-sm">
-                      <span className="text-[#C98BDF]">/**</span>
-                    </div>
-                    <div className="text-sm pl-4 flex items-center">
-                      <span className="text-[#C98BDF]">*</span>
-                      <span className="ml-1">
-                        {
-                          modules
-                            .find((m) => m.id === activeModule)
-                            ?.weeks.find((w) => w.id === activeWeek)?.title
-                        }
-                      </span>
-                      <div className="ml-auto">
-                        <LanguageIconGroup
-                          icons={weekIconsMapping[activeWeek] || []}
-                          size="sm"
-                        />
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col border-x border-[#1E2D3D]">
+              <div className="border-b border-[#1E2D3D] py-2.5 px-4">
+                <div className="flex items-center gap-2">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="text-sm truncate">
+                    {activeWeek
+                      ? modules
+                          .find((m) => m.id === activeModule)
+                          ?.weeks.find((w) => w.id === activeWeek)?.title
+                      : modules.find((m) => m.id === activeModule)?.title}
+                  </span>
+                  <button
+                    className="ml-auto text-sm md:hidden"
+                    onClick={() => setActiveWeek("")}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex-1 flex flex-col md:flex-row">
+                <div className="flex-1 p-2 sm:p-4 md:p-6 font-mono md:border-r border-[#1E2D3D] overflow-y-auto">
+                  {activeWeek ? (
+                    <div className="space-y-4">
+                      <div className="text-sm">
+                        <span className="text-[#C98BDF]">/**</span>
                       </div>
-                    </div>
-
-                    <div className="text-sm pl-4">
-                      <span className="text-[#C98BDF]">*</span> Topics:
-                    </div>
-
-                    {modules
-                      .find((m) => m.id === activeModule)
-                      ?.weeks.find((w) => w.id === activeWeek)
-                      ?.topics.map((topic, index) => {
-                        {/* Extract potential technology names from the topic for icons */}
-                        const techMatches = Object.keys(
-                          weekIconsMapping
-                        ).filter((tech) =>
-                          topic.toLowerCase().includes(tech.toLowerCase())
-                        );
-
-                        return (
-                          <div
-                            key={index}
-                            className="text-sm pl-8 topic-item flex items-center justify-between hover:bg-[#1E2D3D] rounded p-1 transition-colors"
-                          >
-                            <div>
-                              <span className="text-[#C98BDF]">*</span>{" "}
-                              <span className="text-[#43D9AD]">-</span> {topic}
-                            </div>
-                            {techMatches.length > 0 && (
-                              <LanguageIconGroup
-                                icons={weekIconsMapping[techMatches[0]] || []}
-                                size="sm"
-                              />
-                            )}
-                          </div>
-                        );
-                      })}
-
-                    {modules
-                      .find((m) => m.id === activeModule)
-                      ?.weeks.find((w) => w.id === activeWeek)?.project && (
-                      <>
-                        <div className="text-sm pl-4">
-                          <span className="text-[#C98BDF]">*</span> Project:
-                        </div>
-                        <div className="text-sm pl-8 topic-item flex items-center justify-between hover:bg-[#1E2D3D] rounded p-1 transition-colors">
-                          <div>
-                            <span className="text-[#C98BDF]">*</span>{" "}
-                            <span className="text-[#FEA55F]">-</span>{" "}
-                            {
-                              modules
-                                .find((m) => m.id === activeModule)
-                                ?.weeks.find((w) => w.id === activeWeek)
-                                ?.project
-                            }
-                          </div>
-                          <LanguageIconGroup
+                      <div className="text-sm pl-4 flex items-center">
+                        <span className="text-[#C98BDF]">*</span>
+                        <span className="ml-1">
+                          {
+                            modules
+                              .find((m) => m.id === activeModule)
+                              ?.weeks.find((w) => w.id === activeWeek)?.title
+                          }
+                        </span>
+                        <div className="ml-auto">
+                          <ResponsiveLanguageIconGroup
                             icons={weekIconsMapping[activeWeek] || []}
                             size="sm"
                           />
                         </div>
-                      </>
-                    )}
-
-                    <div className="text-sm">
-                      <span className="text-[#C98BDF]">*/</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="text-sm">
-                      <span className="text-[#C98BDF]">/**</span>
-                    </div>
-                    <div className="text-sm pl-4 flex items-center justify-between">
-                      <div>
-                        <span className="text-[#C98BDF]">*</span>{" "}
-                        {modules.find((m) => m.id === activeModule)?.title}
                       </div>
-                      <LanguageIconGroup
-                        icons={moduleIconsMapping[activeModule] || []}
-                        size="sm"
-                      />
-                    </div>
-                    <div className="text-sm pl-4">
-                      <span className="text-[#C98BDF]">*</span> This module
-                      contains{" "}
-                      {modules.find((m) => m.id === activeModule)?.weeks.length}{" "}
-                      weeks of content.
-                    </div>
-                    <div className="text-sm pl-4">
-                      <span className="text-[#C98BDF]">*</span> Progress:
-                      <span className="text-[#43D9AD]">
-                        {progress[activeModule] || 0}%
-                      </span>{" "}
-                      complete
-                      <div className="w-32 h-2 bg-[#1E2D3D] rounded-full mt-1 overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all duration-500"
-                          style={{
-                            width: `${progress[activeModule] || 0}%`,
-                            backgroundColor:
-                              {
-                                frontend: "#61DAFB",
-                                backend: "#339933",
-                                advanced: "#764ABC",
-                                microservices: "#2496ED",
-                              }[activeModule] || "#43D9AD",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className="text-sm pl-4">
-                      <span className="text-[#C98BDF]">*</span> Select a week
-                      from the sidebar to view details
-                      {showCursor && <span className="cursor-blink"></span>}
-                    </div>
-                    <div className="text-sm">
-                      <span className="text-[#C98BDF]">*/</span>
-                    </div>
-                  </div>
-                )}
-              </div>
 
-              {/* Right Panel - Code Examples */}
-              <div className="w-[400px] flex flex-col">
-                <div className="border-b border-[#1E2D3D] py-2.5 px-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">{/* Code snippet examples: */}</span>
-                    {showCursor && <span className="cursor-blink"></span>}
-                  </div>
-                </div>
-                <div className="flex-1 p-6 space-y-6 overflow-y-auto">
-                  {activeModule === "frontend" && (
-                    <>
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#E99287]"
+                      <div className="text-sm pl-4">
+                        <span className="text-[#C98BDF]">*</span> Topics:
+                      </div>
+
+                      {modules
+                        .find((m) => m.id === activeModule)
+                        ?.weeks.find((w) => w.id === activeWeek)
+                        ?.topics.map((topic, index) => {
+                          {
+                            /* Extract potential technology names from the topic for icons */
+                          }
+                          const techMatches = Object.keys(
+                            weekIconsMapping
+                          ).filter((tech) =>
+                            topic.toLowerCase().includes(tech.toLowerCase())
+                          );
+
+                          return (
+                            <div
+                              key={index}
+                              className="text-sm pl-8 topic-item flex items-center justify-between hover:bg-[#1E2D3D] rounded p-1 transition-colors"
                             >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">html-example.html</span>
+                              <div>
+                                <span className="text-[#C98BDF]">*</span>{" "}
+                                <span className="text-[#43D9AD]">-</span>{" "}
+                                {topic}
+                              </div>
+                              {techMatches.length > 0 && (
+                                <ResponsiveLanguageIconGroup
+                                  icons={weekIconsMapping[techMatches[0]] || []}
+                                  size="sm"
+                                />
+                              )}
+                            </div>
+                          );
+                        })}
+
+                      {modules
+                        .find((m) => m.id === activeModule)
+                        ?.weeks.find((w) => w.id === activeWeek)?.project && (
+                        <>
+                          <div className="text-sm pl-4">
+                            <span className="text-[#C98BDF]">*</span> Project:
                           </div>
+                          <div className="text-sm pl-8 topic-item flex items-center justify-between hover:bg-[#1E2D3D] rounded p-1 transition-colors">
+                            <div>
+                              <span className="text-[#C98BDF]">*</span>{" "}
+                              <span className="text-[#FEA55F]">-</span>{" "}
+                              {
+                                modules
+                                  .find((m) => m.id === activeModule)
+                                  ?.weeks.find((w) => w.id === activeWeek)
+                                  ?.project
+                              }
+                            </div>
+                            <ResponsiveLanguageIconGroup
+                              icons={weekIconsMapping[activeWeek] || []}
+                              size="sm"
+                            />
+                          </div>
+                        </>
+                      )}
+
+                      <div className="text-sm">
+                        <span className="text-[#C98BDF]">*/</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="text-sm">
+                        <span className="text-[#C98BDF]">/**</span>
+                      </div>
+                      <div className="text-sm pl-4 flex items-center justify-between">
+                        <div>
+                          <span className="text-[#C98BDF]">*</span>{" "}
+                          {modules.find((m) => m.id === activeModule)?.title}
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`<!DOCTYPE html>
+                        <ResponsiveLanguageIconGroup
+                          icons={moduleIconsMapping[activeModule] || []}
+                          size="sm"
+                        />
+                      </div>
+                      <div className="text-sm pl-4">
+                        <span className="text-[#C98BDF]">*</span> This module
+                        contains{" "}
+                        {
+                          modules.find((m) => m.id === activeModule)?.weeks
+                            .length
+                        }{" "}
+                        weeks of content.
+                      </div>
+                      <div className="text-sm pl-4">
+                        <span className="text-[#C98BDF]">*</span> Progress:
+                        <span className="text-[#43D9AD]">
+                          {progress[activeModule] || 0}%
+                        </span>{" "}
+                        complete
+                        <div className="w-24 sm:w-32 h-2 bg-[#1E2D3D] rounded-full mt-1 overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{
+                              width: `${progress[activeModule] || 0}%`,
+                              backgroundColor:
+                                {
+                                  frontend: "#61DAFB",
+                                  backend: "#339933",
+                                  advanced: "#764ABC",
+                                  microservices: "#2496ED",
+                                }[activeModule] || "#43D9AD",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className="text-sm pl-4">
+                        <span className="text-[#C98BDF]">*</span> Select a week
+                        from the sidebar to view details
+                        {showCursor && <span className="cursor-blink"></span>}
+                      </div>
+                      <div className="text-sm">
+                        <span className="text-[#C98BDF]">*/</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Panel - Code Examples */}
+                <div className="w-full md:w-[400px] flex flex-col">
+                  <div className="border-b border-[#1E2D3D] py-2.5 px-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">
+                        {/* Code snippet examples: */}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto">
+                    {activeModule === "frontend" && (
+                      <>
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-3 md:p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#E99287]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm truncate">
+                                html-example.html
+                              </span>
+                            </div>
+                          </div>
+                          <div className="p-2 sm:p-3 md:p-4">
+                            <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap text-[#607B96] overflow-x-auto">
+                              <code>
+                                {`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -798,36 +824,38 @@ export default function AcademyPage() {
   </main>
 </body>
 </html>`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-
-                      <div className="border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block">
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#43D9AD]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">react-component.tsx</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`import React, { useState } from 'react';
+
+                        <div className="border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block">
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#43D9AD]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">
+                                react-component.tsx
+                              </span>
+                            </div>
+                          </div>
+                          <div className="p-2 sm:p-3 md:p-4">
+                            <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap text-[#607B96] overflow-x-auto">
+                              <code>
+                                {`import React, { useState } from 'react';
 
 interface TodoItem {
   id: number;
@@ -868,42 +896,42 @@ const TodoList: React.FC = () => {
 };
 
 export default TodoList;`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {activeModule === "backend" && (
-                    <>
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#FEA55F]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">express-server.ts</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`import express, { Request, Response } from 'express';
+                      </>
+                    )}
+
+                    {activeModule === "backend" && (
+                      <>
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#FEA55F]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">express-server.ts</span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import productRoutes from './routes/products';
 
@@ -933,38 +961,38 @@ mongoose.connect('mongodb://localhost:27017/ecommerce')
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#43D9AD]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">product.model.ts</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`import mongoose, { Document, Schema } from 'mongoose';
+
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#43D9AD]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">product.model.ts</span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IProduct extends Document {
   name: string;
@@ -987,42 +1015,42 @@ const ProductSchema = new Schema<IProduct>({
 }, { timestamps: true });
 
 export default mongoose.model<IProduct>('Product', ProductSchema);`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {activeModule === "advanced" && (
-                    <>
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#C98BDF]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">graphql-schema.ts</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`import { gql } from 'apollo-server-express';
+                      </>
+                    )}
+
+                    {activeModule === "advanced" && (
+                      <>
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#C98BDF]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">graphql-schema.ts</span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`import { gql } from 'apollo-server-express';
 
 const typeDefs = gql\`
   type Product {
@@ -1059,38 +1087,38 @@ const typeDefs = gql\`
 \`;
 
 export default typeDefs;`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#FEA55F]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">socket-chat.ts</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`import { Server } from 'socket.io';
+
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#FEA55F]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">socket-chat.ts</span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`import { Server } from 'socket.io';
 import http from 'http';
 
 export default function setupSocketIO(server: http.Server) {
@@ -1120,42 +1148,42 @@ export default function setupSocketIO(server: http.Server) {
 
   return io;
 }`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {activeModule === "microservices" && (
-                    <>
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#43D9AD]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">Dockerfile</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`FROM node:18-alpine AS base
+                      </>
+                    )}
+
+                    {activeModule === "microservices" && (
+                      <>
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#43D9AD]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">Dockerfile</span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -1185,38 +1213,40 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 
 CMD ["npm", "start"]`}
-                            </code>
-                          </pre>
-                        </div>
-                      </div>
-
-                      <div
-                        className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
-                      >
-                        <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="text-[#4D5BCE]"
-                            >
-                              <path
-                                d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <span className="text-sm">docker-compose.yml</span>
+                              </code>
+                            </pre>
                           </div>
                         </div>
-                        <div className="p-4">
-                          <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
-                            <code>
-                              {`version: '3.8'
+
+                        <div
+                          className={`border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627] code-block module-${activeModule}`}
+                        >
+                          <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="text-[#4D5BCE]"
+                              >
+                                <path
+                                  d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <span className="text-sm">
+                                docker-compose.yml
+                              </span>
+                            </div>
+                          </div>
+                          <div className="p-4">
+                            <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                              <code>
+                                {`version: '3.8'
 
 services:
   api-gateway:
@@ -1253,18 +1283,19 @@ services:
 
 volumes:
   mongo-data:`}
-                            </code>
-                          </pre>
+                              </code>
+                            </pre>
+                          </div>
                         </div>
-                      </div>
-                    </>
-                  )}
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </AcademyClientWrapper>
     </MainLayout>
   );
 }

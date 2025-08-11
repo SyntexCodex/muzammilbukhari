@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
+import './about-me.css'; // Add custom CSS for the page
 
 interface Education {
   name: string;
@@ -60,12 +61,23 @@ export default function AboutPage() {
     }
   ];
 
+  // Function to handle mobile tab selection
+  const handleMobileTabClick = (section: string) => {
+    setActiveSection(section);
+    // Reset sub-selections when changing main section
+    if (section === 'education') {
+      setActiveEducation('');
+    } else if (section === 'experience') {
+      setActiveExperience('');
+    }
+  };
+
   return (
     <MainLayout>
       <div className="min-h-screen bg-[#011627] text-[#607B96] flex flex-col">
-        <div className="flex-1 flex">
-          {/* Left Sidebar */}
-          <div className="w-64 border-r border-[#1E2D3D] flex flex-col">
+        <div className="flex-1 flex flex-col md:flex-row">
+          {/* Left Sidebar - Mobile Tabs on top, Desktop sidebar */}
+          <div className="md:w-64 md:border-r border-[#1E2D3D] flex flex-col">
             <div className="border-b border-[#1E2D3D] py-2.5 px-4">
               <div className="flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/></svg>
@@ -73,7 +85,40 @@ export default function AboutPage() {
               </div>
             </div>
               
-              <div className="flex flex-col py-4">
+              {/* Mobile Navigation - Horizontal scrolling tabs */}
+               <div className="md:hidden flex overflow-x-auto py-2 px-2 border-b border-[#1E2D3D] no-scrollbar">
+                 <button
+                   onClick={() => handleMobileTabClick('bio')}
+                   className={`flex items-center gap-1 py-1 px-3 text-xs rounded-md mr-2 whitespace-nowrap transition-colors ${activeSection === 'bio' ? 'bg-[#1E2D3D] text-white' : 'hover:bg-[#1E2D3D]/50'}`}
+                 >
+                   <span className="w-2 h-2 rounded-full bg-[#E99287]"></span>
+                   bio
+                 </button>
+                 <button
+                   onClick={() => handleMobileTabClick('interests')}
+                   className={`flex items-center gap-1 py-1 px-3 text-xs rounded-md mr-2 whitespace-nowrap transition-colors ${activeSection === 'interests' ? 'bg-[#1E2D3D] text-white' : 'hover:bg-[#1E2D3D]/50'}`}
+                 >
+                   <span className="w-2 h-2 rounded-full bg-[#43D9AD]"></span>
+                   interests
+                 </button>
+                 <button
+                   onClick={() => handleMobileTabClick('education')}
+                   className={`flex items-center gap-1 py-1 px-3 text-xs rounded-md mr-2 whitespace-nowrap transition-colors ${activeSection === 'education' ? 'bg-[#1E2D3D] text-white' : 'hover:bg-[#1E2D3D]/50'}`}
+                 >
+                   <span className="w-2 h-2 rounded-full bg-[#3A49A4]"></span>
+                   education
+                 </button>
+                 <button
+                   onClick={() => handleMobileTabClick('experience')}
+                   className={`flex items-center gap-1 py-1 px-3 text-xs rounded-md mr-2 whitespace-nowrap transition-colors ${activeSection === 'experience' ? 'bg-[#1E2D3D] text-white' : 'hover:bg-[#1E2D3D]/50'}`}
+                 >
+                   <span className="w-2 h-2 rounded-full bg-[#FEA55F]"></span>
+                   experience
+                 </button>
+               </div>
+              
+              {/* Desktop Navigation - Vertical sidebar */}
+              <div className="hidden md:flex flex-col py-4">
                 <button
                   onClick={() => setActiveSection('bio')}
                   className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors"
@@ -101,7 +146,7 @@ export default function AboutPage() {
                       <button
                         key={edu.name}
                         onClick={() => setActiveEducation(edu.name)}
-                        className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors"
+                        className={`flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors ${activeEducation === edu.name ? 'bg-[#1E2D3D]/70' : ''}`}
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#607B96]"><path d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                         {edu.name}
@@ -122,7 +167,7 @@ export default function AboutPage() {
                       <button
                         key={exp.company}
                         onClick={() => setActiveExperience(exp.company)}
-                        className="flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors"
+                        className={`flex items-center gap-2 py-2 px-4 text-sm hover:bg-[#1E2D3D] transition-colors ${activeExperience === exp.company ? 'bg-[#1E2D3D]/70' : ''}`}
                       >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#607B96]"><path d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                         {exp.company}
@@ -134,7 +179,7 @@ export default function AboutPage() {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col border-x border-[#1E2D3D]">
+          <div className="flex-1 flex flex-col md:border-x border-[#1E2D3D]">
             <div className="border-b border-[#1E2D3D] py-2.5 px-4">
               <div className="flex items-center gap-2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
@@ -142,8 +187,8 @@ export default function AboutPage() {
                 <button className="ml-auto text-sm">✕</button>
               </div>
             </div>
-            <div className="flex-1 flex">
-              <div className="flex-1 p-6 font-mono border-r border-[#1E2D3D]">
+            <div className="flex-1 flex flex-col md:flex-row">
+              <div className="flex-1 p-4 md:p-6 font-mono md:border-r border-[#1E2D3D]">
               {activeSection === 'bio' && (
                 <div className="space-y-4">
                   <div className="text-sm">
@@ -196,7 +241,22 @@ export default function AboutPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-sm text-[#607B96]">{/* Select an education item */}</div>
+                    <div className="text-sm text-[#607B96]">
+                      {/* Mobile education selection */}
+                      <div className="md:hidden space-y-3 pt-2">
+                        {education.map((edu) => (
+                          <button
+                            key={edu.name}
+                            onClick={() => setActiveEducation(edu.name)}
+                            className="block w-full text-left p-2 border border-[#1E2D3D] rounded hover:bg-[#1E2D3D]/50 transition-colors"
+                          >
+                            <div className="font-medium">{edu.degree}</div>
+                            <div className="text-xs opacity-70">{edu.year}</div>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="hidden md:block">Select an education item</div>
+                    </div>
                   )}
                 </div>
               )}
@@ -219,20 +279,35 @@ export default function AboutPage() {
                       </div>
                     </div>
                   ) : (
-                    <div className="text-sm text-[#607B96]">{/* Select an experience item */}</div>
+                    <div className="text-sm text-[#607B96]">
+                      {/* Mobile experience selection */}
+                      <div className="md:hidden space-y-3 pt-2">
+                        {experiences.map((exp) => (
+                          <button
+                            key={exp.company}
+                            onClick={() => setActiveExperience(exp.company)}
+                            className="block w-full text-left p-2 border border-[#1E2D3D] rounded hover:bg-[#1E2D3D]/50 transition-colors"
+                          >
+                            <div className="font-medium">{exp.position}</div>
+                            <div className="text-xs opacity-70">{exp.duration}</div>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="hidden md:block">Select an experience item</div>
+                    </div>
                   )}
                 </div>
               )}
             </div>
-              <div className="w-[400px] flex flex-col">
+              <div className="w-full md:w-[400px] flex flex-col">
                   <div className="border-b border-[#1E2D3D] py-2.5 px-4">
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{/* Code snippet showcase: */}</span>
                     </div>
                   </div>
-                  <div className="flex-1 p-6 space-y-6">
+                  <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6">
                     <div className="border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627]">
-                      <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                      <div className="border-b border-[#1E2D3D] p-3 md:p-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#E99287]"><path d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                           <span className="text-sm">@username</span>
@@ -242,8 +317,8 @@ export default function AboutPage() {
                           <span>★ 3 stars</span>
                         </div>
                       </div>
-                      <div className="p-4">
-                        <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                      <div className="p-3 md:p-4">
+                        <pre className="text-xs md:text-sm font-mono whitespace-pre-wrap text-[#607B96] overflow-x-auto">
                           <code>
                             {`function initializeModelChunk<T>(chunk: ResolvedModelChunk): T {
   const value: T = parseModel(chunk._response, chunk._value);
@@ -257,7 +332,7 @@ export default function AboutPage() {
                       </div>
                     </div>
                     <div className="border border-[#1E2D3D] rounded-lg overflow-hidden bg-[#011627]">
-                      <div className="border-b border-[#1E2D3D] p-4 flex items-center justify-between">
+                      <div className="border-b border-[#1E2D3D] p-3 md:p-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#E99287]"><path d="M10 6L15.2929 11.2929C15.6834 11.6834 15.6834 12.3166 15.2929 12.7071L10 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                           <span className="text-sm">@username</span>
@@ -267,8 +342,8 @@ export default function AboutPage() {
                           <span>★ 0 stars</span>
                         </div>
                       </div>
-                      <div className="p-4">
-                        <pre className="text-sm font-mono whitespace-pre-wrap text-[#607B96]">
+                      <div className="p-3 md:p-4">
+                        <pre className="text-xs md:text-sm font-mono whitespace-pre-wrap text-[#607B96] overflow-x-auto">
                           <code>
                             {`export function parseModelTuple(
   response: Response,

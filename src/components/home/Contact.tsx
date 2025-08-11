@@ -7,36 +7,36 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="contact-section container mx-auto px-4 md:px-6 py-16 md:py-24"
+      className="contact-section container mx-auto px-3 sm:px-4 md:px-6 py-8 sm:py-10 md:py-16 lg:py-24"
     >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-text-primary text-center">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-5 md:mb-6 lg:mb-8 text-text-primary text-center">
           Get in <span className="text-theme-primary">Touch</span>
         </h2>
 
         <div className="bg-[#011627] border border-[#1E2D3D] rounded-lg overflow-hidden">
-          <div className="border-b border-[#1E2D3D] p-4 flex items-center">
-            <div className="text-[#607B96] font-mono text-sm">contact-info</div>
+          <div className="border-b border-[#1E2D3D] p-3 sm:p-4 flex items-center">
+            <div className="text-[#607B96] font-mono text-xs sm:text-sm">contact-info</div>
           </div>
 
-          <div className="p-6 md:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="p-4 sm:p-5 md:p-6 lg:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
               {/* Left side - Contact information */}
-              <div className="space-y-6">
-                <p className="text-[#607B96]">
+              <div className="space-y-4 sm:space-y-5 md:space-y-6">
+                <p className="text-[#607B96] text-sm sm:text-base">
                   I&rsquo;m interested in freelance opportunities – especially
                   ambitious or large projects. However, if you have other
                   requests or questions, don&rsquo;t hesitate to reach out
                   through any of these channels.
                 </p>
 
-                <div className="space-y-5">
+                <div className="space-y-3 sm:space-y-4 md:space-y-5">
                   {/* Email */}
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#1C2B3A] flex items-center justify-center text-[#43D9AD]">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#1C2B3A] flex items-center justify-center text-[#43D9AD] flex-shrink-0">
                       <svg
-                        width="20"
-                        height="20"
+                        width="16"
+                        height="16"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -58,10 +58,12 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium text-white">Email</h3>
+                      <h3 className="text-base sm:text-lg font-medium text-white">
+                        Email
+                      </h3>
                       <a
                         href="mailto:muzammil.bukhari@example.com"
-                        className="text-[#607B96] hover:text-[#43D9AD] transition-colors"
+                        className="text-sm sm:text-base text-[#607B96] hover:text-[#43D9AD] transition-colors break-all"
                       >
                         muzammil.bukhari@example.com
                       </a>
@@ -69,11 +71,12 @@ const Contact = () => {
                   </div>
 
                   {/* WhatsApp */}
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#1C2B3A] flex items-center justify-center text-[#43D9AD]">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#1C2B3A] flex items-center justify-center text-[#43D9AD] flex-shrink-0">
                       <svg
-                        width="20"
-                        height="20"
+                        width="16"
+                        height="16"
+                        className="sm:w-5 sm:h-5"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -100,12 +103,12 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium text-white">
+                      <h3 className="text-base sm:text-lg font-medium text-white">
                         WhatsApp
                       </h3>
                       <a
                         href="https://wa.me/+923982146359"
-                        className="text-[#607B96] hover:text-[#43D9AD] transition-colors"
+                        className="text-sm sm:text-base text-[#607B96] hover:text-[#43D9AD] transition-colors"
                       >
                         +92 398 214 6359
                       </a>
@@ -152,31 +155,34 @@ const Contact = () => {
               </div>
 
               {/* Right side - Social links */}
-              <div className="space-y-6">
-                <div className="bg-[#1C2B3A] p-6 rounded-lg">
-                  <h3 className="text-lg font-medium text-white mb-4">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="bg-[#1C2B3A] p-4 sm:p-6 rounded-lg">
+                  <h3 className="text-base sm:text-lg font-medium text-white mb-3 sm:mb-4">
                     Professional Profiles
                   </h3>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {/* GitHub */}
                     <a
                       href="https://github.com/muzammilbukhari"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-md hover:bg-[#263B50] transition-colors"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-[#263B50] transition-colors"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#011627] flex items-center justify-center">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#011627] flex items-center justify-center">
                         <Image
                           src="/icons/icon-git.svg"
                           alt="GitHub"
-                          width={24}
-                          height={24}
+                          width={20}
+                          height={20}
+                          className="sm:w-6 sm:h-6"
                         />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium">GitHub</h4>
-                        <p className="text-[#607B96] text-sm">
+                        <h4 className="text-white text-sm sm:text-base font-medium">
+                          GitHub
+                        </h4>
+                        <p className="text-[#607B96] text-xs sm:text-sm">
                           github.com/muzammilbukhari
                         </p>
                       </div>
@@ -187,19 +193,22 @@ const Contact = () => {
                       href="https://linkedin.com/in/muzammilbukhari"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-md hover:bg-[#263B50] transition-colors"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-[#263B50] transition-colors"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#011627] flex items-center justify-center">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#011627] flex items-center justify-center">
                         <Image
                           src="/icons/icon-linkedin.svg"
                           alt="LinkedIn"
-                          width={24}
-                          height={24}
+                          width={20}
+                          height={20}
+                          className="sm:w-6 sm:h-6"
                         />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium">LinkedIn</h4>
-                        <p className="text-[#607B96] text-sm">
+                        <h4 className="text-white text-sm sm:text-base font-medium">
+                          LinkedIn
+                        </h4>
+                        <p className="text-[#607B96] text-xs sm:text-sm">
                           linkedin.com/in/muzammilbukhari
                         </p>
                       </div>
@@ -210,12 +219,13 @@ const Contact = () => {
                       href="https://upwork.com/freelancers/muzammilbukhari"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-md hover:bg-[#263B50] transition-colors"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-[#263B50] transition-colors"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#011627] flex items-center justify-center text-[#6FDA44]">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#011627] flex items-center justify-center text-[#6FDA44]">
                         <svg
-                          width="24"
-                          height="24"
+                          width="20"
+                          height="20"
+                          className="sm:w-6 sm:h-6"
                           viewBox="0 0 24 24"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -227,8 +237,10 @@ const Contact = () => {
                         </svg>
                       </div>
                       <div>
-                        <h4 className="text-white font-medium">Upwork</h4>
-                        <p className="text-[#607B96] text-sm">
+                        <h4 className="text-white text-sm sm:text-base font-medium">
+                          Upwork
+                        </h4>
+                        <p className="text-[#607B96] text-xs sm:text-sm">
                           upwork.com/freelancers/muzammilbukhari
                         </p>
                       </div>
@@ -239,19 +251,22 @@ const Contact = () => {
                       href="https://twitter.com/muzammilbukhari"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-md hover:bg-[#263B50] transition-colors"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-md hover:bg-[#263B50] transition-colors"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#011627] flex items-center justify-center">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#011627] flex items-center justify-center">
                         <Image
                           src="/icons/icon-x.svg"
                           alt="Twitter"
-                          width={24}
-                          height={24}
+                          width={20}
+                          height={20}
+                          className="sm:w-6 sm:h-6"
                         />
                       </div>
                       <div>
-                        <h4 className="text-white font-medium">Twitter</h4>
-                        <p className="text-[#607B96] text-sm">
+                        <h4 className="text-white text-sm sm:text-base font-medium">
+                          Twitter
+                        </h4>
+                        <p className="text-[#607B96] text-xs sm:text-sm">
                           twitter.com/muzammilbukhari
                         </p>
                       </div>
@@ -259,8 +274,10 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="text-[#607B96] text-sm">
-                  <p>{/* Feel free to reach out through any of these channels */}</p>
+                <div className="text-[#607B96] text-xs sm:text-sm">
+                  <p>
+                    {/* Feel free to reach out through any of these channels */}
+                  </p>
                   <p>{/* I typically respond within 24 hours */}</p>
                 </div>
               </div>

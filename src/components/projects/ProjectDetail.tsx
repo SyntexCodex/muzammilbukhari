@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -11,6 +11,21 @@ interface ProjectDetailProps {
 }
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
+  // State for collapsible sections on mobile
+  const [sectionsOpen, setSectionsOpen] = useState({
+    description: true,
+    details: false,
+    technologies: false
+  });
+  
+  // Toggle section visibility
+  const toggleSection = (section: 'description' | 'details' | 'technologies') => {
+    setSectionsOpen(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -18,7 +33,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
       transition={{ duration: 0.5 }}
       className="flex flex-col w-full h-full bg-[#011627] overflow-y-auto"
     >
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <div className="mb-6">
           <Link href="/projects" className="text-[#607B96] hover:text-white transition-colors">
             <span className="flex items-center">
@@ -54,7 +69,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
             />
           </div>
 
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-4">{project.title}</h1>
             
             <div className="flex flex-wrap gap-2 mb-6">
@@ -68,24 +83,125 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
               ))}
             </div>
 
-            <div className="prose prose-invert max-w-none mb-8">
-              <p className="text-[#E5E9F0] mb-4">{project.description}</p>
+            {/* Description Section - Collapsible on Mobile */}
+            <div className="mb-6 border-b border-[#1E2D3D] pb-4">
+              <div 
+                className="flex items-center justify-between cursor-pointer md:cursor-default mb-2"
+                onClick={() => toggleSection('description')}
+              >
+                <h2 className="text-xl text-white font-medium">Description</h2>
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`md:hidden transition-transform duration-300 ${sectionsOpen.description ? 'transform rotate-180' : ''}`}
+                >
+                  <path d="M1 1L5 5L9 1" stroke="#607B96" strokeWidth="1.5" />
+                </svg>
+              </div>
               
-              {/* This would be expanded with more detailed content in a real project */}
-              <p className="text-[#E5E9F0] mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. 
-                Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus 
-                rhoncus ut eleifend nibh porttitor. Ut in nulla enim.
-              </p>
-              
-              <p className="text-[#E5E9F0] mb-4">
-                Phasellus molestie magna non est bibendum non venenatis nisl tempor. 
-                Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. 
-                Praesent id metus massa, ut blandit odio.
-              </p>
+              <motion.div 
+                initial={{ height: 'auto' }}
+                animate={{ 
+                  height: sectionsOpen.description || window.innerWidth >= 768 ? 'auto' : 0,
+                  opacity: sectionsOpen.description || window.innerWidth >= 768 ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+                style={{ overflow: 'hidden' }}
+                className="prose prose-invert max-w-none"
+              >
+                <p className="text-[#E5E9F0] mb-4">{project.description}</p>
+                
+                {/* This would be expanded with more detailed content in a real project */}
+                <p className="text-[#E5E9F0] mb-4">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. 
+                  Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus 
+                  rhoncus ut eleifend nibh porttitor. Ut in nulla enim.
+                </p>
+                
+                <p className="text-[#E5E9F0]">
+                  Phasellus molestie magna non est bibendum non venenatis nisl tempor. 
+                  Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. 
+                  Praesent id metus massa, ut blandit odio.
+                </p>
+              </motion.div>
             </div>
+            
+            {/* Technologies Section - Collapsible on Mobile */}
+            <div className="mb-6 border-b border-[#1E2D3D] pb-4">
+              <div 
+                className="flex items-center justify-between cursor-pointer md:cursor-default mb-2"
+                onClick={() => toggleSection('technologies')}
+              >
+                <h2 className="text-xl text-white font-medium">Technologies</h2>
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`md:hidden transition-transform duration-300 ${sectionsOpen.technologies ? 'transform rotate-180' : ''}`}
+                >
+                  <path d="M1 1L5 5L9 1" stroke="#607B96" strokeWidth="1.5" />
+                </svg>
+              </div>
+              
+              <motion.div 
+                initial={{ height: 'auto' }}
+                animate={{ 
+                  height: sectionsOpen.technologies || window.innerWidth >= 768 ? 'auto' : 0,
+                  opacity: sectionsOpen.technologies || window.innerWidth >= 768 ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+                  {project.tags.map((tag, index) => (
+                    <div key={index} className="flex items-center">
+                      <div className="w-2 h-2 bg-[#43D9AD] mr-2"></div>
+                      <span className="text-[#607B96]">{tag}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+            
+            {/* Project Details Section - Collapsible on Mobile */}
+            <div className="mb-6">
+              <div 
+                className="flex items-center justify-between cursor-pointer md:cursor-default mb-2"
+                onClick={() => toggleSection('details')}
+              >
+                <h2 className="text-xl text-white font-medium">Project Details</h2>
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`md:hidden transition-transform duration-300 ${sectionsOpen.details ? 'transform rotate-180' : ''}`}
+                >
+                  <path d="M1 1L5 5L9 1" stroke="#607B96" strokeWidth="1.5" />
+                </svg>
+              </div>
+              
+              <motion.div 
+                initial={{ height: 'auto' }}
+                animate={{ 
+                  height: sectionsOpen.details || window.innerWidth >= 768 ? 'auto' : 0,
+                  opacity: sectionsOpen.details || window.innerWidth >= 768 ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+                style={{ overflow: 'hidden' }}
+                className="prose prose-invert max-w-none"
+              >
 
-            <div className="flex flex-col md:flex-row gap-4">
+              </motion.div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <a
                 href="#"
                 target="_blank"
